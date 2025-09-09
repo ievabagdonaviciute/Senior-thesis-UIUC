@@ -50,6 +50,7 @@ from pathlib import Path
 from typing import Optional, List, Tuple
 import torch
 from PIL import Image
+import argparse
 from transformers import AutoProcessor, AutoModelForImageTextToText
 
 # ---- config ----
@@ -142,20 +143,43 @@ def ask_smolvlm(processor, model, frames_dir: Path, question: str) -> str:
     out = processor.batch_decode(generated_ids, skip_special_tokens=True)[0]
     return out
 
-def eval_task(task_path: str, out_path: str, counter_limit: Optional[int] = None):
+def eval_task(task_path: str, out_path: str, counter_limit: Optional[int] = None, resume_cat: Optional[str] = None, resume_qid: Optional[str] = None):
     """
     Read CLEVRER-style JSONL:
       - expects 'video_path' to map to frames dir
       - expects 'prompt' or 'question' as the query
     Writes each row + model_output to out_path (JSONL).
     """
-    print("[smolvlm] Starting task …", flush=True)
+
+    # determine mode: fresh run (truncate) vs resume (append)
+    is_resuming = bool(resume_qid or resume_cat)
+
+    already_done: set = set()
+    if is_resuming and os.path.exists(out_path):
+        with open(out_path, "r", encoding="utf-8") as f_prev:
+            for ln in f_prev:
+                try:
+                    rec = json.loads(ln)
+                    qid_prev = rec.get("question_id") or rec.get("qid")
+                    if qid_prev:
+                        already_done.add(qid_prev)
+                except Exception:
+                    continue  # ignore partial/corrupted lines
+
+    # if resuming, we haven't yet passed the last successful item
+    # if fresh run, start immediately
+    resume_passed = (not is_resuming)
+
+    if is_resuming: print("[smolvlm] Resuming task …", flush=True)
+    else: print("[smolvlm] Starting task …", flush=True)
+
     processor, model = _load_model()
 
     Path(out_path).parent.mkdir(parents=True, exist_ok=True)
     written = 0
 
-    with open(task_path, "r", encoding="utf-8") as f_in, open(out_path, "w", encoding="utf-8") as f_out:
+    mode = "a" if is_resuming else "w"
+    with open(task_path, "r", encoding="utf-8") as f_in, open(out_path, mode, encoding="utf-8") as f_out:
         for i, line in enumerate(f_in):
             if not line.strip():
                 continue
@@ -173,6 +197,28 @@ def eval_task(task_path: str, out_path: str, counter_limit: Optional[int] = None
                     raise FileNotFoundError(f"Missing frames dir: {frames_dir}")
 
                 qid = row.get("question_id") or row.get("qid") or f"row{i}"
+
+                category = row.get("category") or row.get("question_type")
+
+                # 1) De-duplicate when resuming
+                if is_resuming and qid in already_done:
+                    print(f"[smolvlm][skip-existing] {qid}", flush=True)
+                    continue
+
+                # 2) Resume: keep skipping until we pass the specified (cat, qid)
+                if not resume_passed:
+                    # If a category filter was provided, enforce it while searching
+                    if resume_cat is not None and category != resume_cat:
+                        continue
+                    # If a qid marker was provided and we haven't reached it yet, keep skipping
+                    if resume_qid is not None and qid != resume_qid:
+                        continue
+
+                    # We have reached the resume marker (by cat/qid conditions)
+                    print(f"[smolvlm][resume-hit] reached category={category} qid={qid}; starting HERE", flush=True)
+                    resume_passed = True
+
+
                 print(f"[smolvlm] {qid}", flush=True)
 
                 raw = ask_smolvlm(processor, model, frames_dir, q)
@@ -191,7 +237,17 @@ def eval_task(task_path: str, out_path: str, counter_limit: Optional[int] = None
     print(f"[smolvlm] Done. Wrote {written} rows to {out_path}", flush=True)
 
 if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--resume-cat", default=None,
+                        help="e.g., descriptive / explanatory / predictive / counterfactual")
+    parser.add_argument("--resume-qid", default=None,
+                        help="question_id of the last successful line")
+    args = parser.parse_args()
+
     TASK_JSONL = "/home/ievab2/run_models/questions/clevrer_filtered_500.jsonl"
     OUT_JSONL  = "/home/ievab2/run_models/results/smolvlm_out.jsonl"
+    #OUT_JSONL = "/home/ievab2/run_models/results/smolvlm_resume_test.jsonl"
+
     LIMIT = None   # set to small int for a smoke test
-    eval_task(TASK_JSONL, OUT_JSONL, counter_limit=LIMIT)
+    eval_task(TASK_JSONL, OUT_JSONL, counter_limit=LIMIT, resume_cat=args.resume_cat, resume_qid=args.resume_qid)
