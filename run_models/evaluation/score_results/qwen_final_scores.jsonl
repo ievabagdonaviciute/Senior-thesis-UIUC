@@ -1,5 +1,5 @@
 {
-  "model_name": "Qwen2.5-7B-Instruct",
+  "model_name": "Qwen2.5-VL-7B-Instruct",
   "dataset": "CLEVRER",
   "Descriptive": 0.6193,
   "Explanatory": 0.5757,

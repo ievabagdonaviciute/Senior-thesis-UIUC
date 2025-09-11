@@ -14,7 +14,7 @@ MODEL_CHOICES = ["VIDEOLLAVA","QWEN","SMOLVLM","DEEPSEEK_TINY", "TEST"]
 # --- Pretty names you want in final JSONL ---
 MODEL_DISPLAY_NAMES = {
     "VIDEOLLAVA":    "Video-LLaVA-7B-hf",
-    "QWEN":          "Qwen2.5-7B-Instruct",
+    "QWEN":          "Qwen2.5-VL-7B-Instruct",
     "SMOLVLM":       "SmolVLM2-2.2B-Instruct",
     "DEEPSEEK_TINY": "DeepSeek-VL2-Tiny",
     "TEST":          "test",
