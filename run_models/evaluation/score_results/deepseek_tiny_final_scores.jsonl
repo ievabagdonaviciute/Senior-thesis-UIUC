@@ -1,0 +1,17 @@
+{
+  "model_name": "DeepSeek-VL2-Tiny",
+  "dataset": "CLEVRER",
+  "Descriptive": 0.3905,
+  "Explanatory": 0.2266,
+  "Predictive": 0.289,
+  "Counterfactual": 0.3036,
+  "Total": 0.3569,
+  "counts": {
+    "descriptive_correct": 2147,
+    "descriptive_total": 5498,
+    "explanatory_total": 850,
+    "predictive_total": 346,
+    "counterfactual_total": 953,
+    "all_items_total": 7647
+  }
+}
