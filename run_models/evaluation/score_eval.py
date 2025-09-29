@@ -6,7 +6,7 @@ from typing import Tuple, Dict, Any, List, Set
 # --- Folders ---
 EVAL_SRC_DIR  = Path("/home/ievab2/run_models/evaluation/LLM_eval_results")
 RESULTS_DIR   = Path("/home/ievab2/run_models/results")
-SCORE_OUT_DIR = Path("/home/ievab2/run_models/evaluation/score_results")
+SCORE_OUT_DIR = Path("/home/ievab2/run_models/evaluation/total_score_results")
 
 # --- Short keys you’ll pass on CLI ---
 MODEL_CHOICES = ["VIDEOLLAVA","QWEN","SMOLVLM","DEEPSEEK_TINY", "TEST"]
@@ -177,6 +177,48 @@ def deterministic_category_scores(results_path: Path, categories: List[str]) -> 
     per_cat_counts = {c: (per_cat_n[c], 0) for c in cats}
     return per_cat_avg, per_cat_counts, total_sum, total_n
 
+# ===== Extra Part: Dump per-question scores =====
+def dump_per_question_scores(model_name: str, threshold: float = 0.5):
+    input_path = MODEL_TO_RESULTS_FILE[model_name]
+    if not input_path.exists():
+        print(f"[warn] Missing raw results for {model_name}: {input_path}")
+        return
+
+    out_dir = Path("/home/ievab2/run_models/evaluation/mcq_eval_results")
+    out_dir.mkdir(parents=True, exist_ok=True)
+    out_path = out_dir / f"{model_name.lower()}_per_question.jsonl"
+
+    with input_path.open() as fin, out_path.open("w") as fout:
+        for line in fin:
+            if not line.strip():
+                continue
+            try:
+                ex = json.loads(line)
+            except Exception:
+                continue
+
+            cat = (ex.get("category") or "").strip().lower()
+            score = 0.0
+
+            if cat == "descriptive":
+                try:
+                    score_val = float(ex.get("llm_score", 0.0))
+                except Exception:
+                    score_val = 0.0
+                score = 1.0 if score_val >= threshold else 0.0
+
+            elif cat in {"explanatory","predictive","counterfactual"}:
+                prompt = ex.get("prompt", "")
+                letter2text = parse_options_from_prompt(prompt)
+                gt_set   = normalize_mcq_set(ex.get("ground_truth",""), letter2text)
+                pred_set = normalize_mcq_set(ex.get("model_output",""), letter2text)
+                score = jaccard(pred_set, gt_set)
+
+            ex["score"] = score
+            fout.write(json.dumps(ex, ensure_ascii=False) + "\n")
+
+    print(f"[per_question] Wrote per-question scores → {out_path}")
+
 def main():
     ap = argparse.ArgumentParser(description="Compute final scores combining LLM descriptive and deterministic MCQ.")
     ap.add_argument("model_name", choices=MODEL_CHOICES, help="Which model to score")
@@ -235,6 +277,9 @@ def main():
         print(f"  {c.capitalize():<14}: {per_cat_avg.get(c, 0.0):.4f}  (n={per_cat_counts.get(c,(0,0))[0]})")
     print(f"  Total           : {overall:.4f}  (items={total_items})")
     print(f"[score_eval] Wrote: {out_path}")
+
+    # --- Extra: write per-question scores JSONL (unchanges the rest) ---
+    dump_per_question_scores(args.model_name, threshold=args.threshold)
 
 if __name__ == "__main__":
     main()
