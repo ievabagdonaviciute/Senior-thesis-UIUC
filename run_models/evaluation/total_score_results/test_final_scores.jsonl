@@ -1,0 +1,17 @@
+{
+  "model_name": "test",
+  "dataset": "CLEVRER",
+  "Descriptive": 0.3333,
+  "Explanatory": 0.4444,
+  "Predictive": 0.3333,
+  "Counterfactual": 0.3333,
+  "Total": 0.3611,
+  "counts": {
+    "descriptive_correct": 1,
+    "descriptive_total": 3,
+    "explanatory_total": 3,
+    "predictive_total": 3,
+    "counterfactual_total": 3,
+    "all_items_total": 12
+  }
+}
