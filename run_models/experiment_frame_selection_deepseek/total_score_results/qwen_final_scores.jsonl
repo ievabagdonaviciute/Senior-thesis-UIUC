@@ -1,0 +1,17 @@
+{
+  "model_name": "Qwen2.5-VL-7B-Instruct",
+  "dataset": "CLEVRER",
+  "Descriptive": 0.4447,
+  "Explanatory": 0.57,
+  "Predictive": 0.0968,
+  "Counterfactual": 0.2943,
+  "Total": 0.4242,
+  "counts": {
+    "descriptive_correct": 2445,
+    "descriptive_total": 5498,
+    "explanatory_total": 850,
+    "predictive_total": 346,
+    "counterfactual_total": 953,
+    "all_items_total": 7647
+  }
+}
