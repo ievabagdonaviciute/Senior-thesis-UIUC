@@ -1,0 +1,23 @@
+{
+  "model_key": "QWEN",
+  "dataset": "CLEVRER",
+  "frames": 8,
+  "Descriptive": 0.5069,
+  "Explanatory": 0.5485,
+  "Predictive": 0.341,
+  "Counterfactual": 0.2922,
+  "Total": 0.4773,
+  "counts": {
+    "descriptive_correct": 2787,
+    "descriptive_total": 5498,
+    "explanatory_total": 850,
+    "predictive_total": 346,
+    "counterfactual_total": 953,
+    "all_items_total": 7647
+  },
+  "paths": {
+    "llm_eval_descriptive_jsonl": "/home/ievab2/run_models/experiment_concat_frames/QWEN/experiment_og_concat_8/LLM_eval_results/qwen_evaluated_descriptive.jsonl",
+    "raw_results_jsonl": "/home/ievab2/run_models/experiment_concat_frames/QWEN/experiment_og_concat_8/qwen_out.jsonl",
+    "scores_dir": "/home/ievab2/run_models/experiment_concat_frames/QWEN/experiment_og_concat_8/scores"
+  }
+}

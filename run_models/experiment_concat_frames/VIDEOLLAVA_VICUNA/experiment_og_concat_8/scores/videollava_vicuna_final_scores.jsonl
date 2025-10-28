@@ -1,0 +1,23 @@
+{
+  "model_key": "VIDEOLLAVA_VICUNA",
+  "dataset": "CLEVRER",
+  "frames": 8,
+  "Descriptive": 0.2806,
+  "Explanatory": 0.2454,
+  "Predictive": 0.4509,
+  "Counterfactual": 0.2749,
+  "Total": 0.2837,
+  "counts": {
+    "descriptive_correct": 1543,
+    "descriptive_total": 5498,
+    "explanatory_total": 850,
+    "predictive_total": 346,
+    "counterfactual_total": 953,
+    "all_items_total": 7647
+  },
+  "paths": {
+    "llm_eval_descriptive_jsonl": "/home/ievab2/run_models/experiment_concat_frames/VIDEOLLAVA_VICUNA/experiment_og_concat_8/LLM_eval_results/videollava_vicuna_evaluated_descriptive.jsonl",
+    "raw_results_jsonl": "/home/ievab2/run_models/experiment_concat_frames/VIDEOLLAVA_VICUNA/experiment_og_concat_8/llava_vicuna_out.jsonl",
+    "scores_dir": "/home/ievab2/run_models/experiment_concat_frames/VIDEOLLAVA_VICUNA/experiment_og_concat_8/scores"
+  }
+}
