@@ -1,0 +1,17 @@
+{
+  "model_name": "Video-LLaVA-7B-hf",
+  "dataset": "CLEVRER",
+  "Descriptive": 0.2185,
+  "Explanatory": 0.2061,
+  "Predictive": 0.4224,
+  "Counterfactual": 0.2344,
+  "Total": 0.2282,
+  "counts": {
+    "descriptive_correct": 1116,
+    "descriptive_total": 5108,
+    "explanatory_total": 846,
+    "predictive_total": 322,
+    "counterfactual_total": 946,
+    "all_items_total": 7222
+  }
+}

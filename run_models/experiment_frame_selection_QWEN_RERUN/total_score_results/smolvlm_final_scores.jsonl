@@ -1,0 +1,17 @@
+{
+  "model_name": "SmolVLM2-2.2B-Instruct",
+  "dataset": "CLEVRER",
+  "Descriptive": 0.4575,
+  "Explanatory": 0.2445,
+  "Predictive": 0.4534,
+  "Counterfactual": 0.2925,
+  "Total": 0.4108,
+  "counts": {
+    "descriptive_correct": 2337,
+    "descriptive_total": 5108,
+    "explanatory_total": 846,
+    "predictive_total": 322,
+    "counterfactual_total": 946,
+    "all_items_total": 7222
+  }
+}
