@@ -1,0 +1,113 @@
+{
+  "hdf5": "/home/ievab2/run_models/Physion_dataset/Dominoes/pilot_dominoes_0mid_d3chairs_o1plants_tdwroom_0063.hdf5",
+  "target_id": 2,
+  "zone_id": 1,
+  "target_type": "cube",
+  "objects": [
+    {
+      "object_id": 1,
+      "name": "cube",
+      "rgb": [
+        1.0,
+        1.0,
+        0.0
+      ],
+      "seg_rgb": [
+        197,
+        199,
+        58
+      ],
+      "tag": "ZONE"
+    },
+    {
+      "object_id": 2,
+      "name": "cube",
+      "rgb": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "seg_rgb": [
+        134,
+        97,
+        68
+      ],
+      "tag": "TARGET"
+    },
+    {
+      "object_id": 3,
+      "name": "cube",
+      "rgb": [
+        0.0567625122173826,
+        0.3638335716790545,
+        0.7754675620719739
+      ],
+      "seg_rgb": [
+        204,
+        144,
+        69
+      ],
+      "tag": ""
+    },
+    {
+      "object_id": 4,
+      "name": "coffee_001",
+      "rgb": [
+        0.03913432523439153,
+        0.7382669576512858,
+        0.8649761337266915
+      ],
+      "seg_rgb": [
+        100,
+        151,
+        163
+      ],
+      "tag": ""
+    },
+    {
+      "object_id": 5,
+      "name": "atmosphere_nodo",
+      "rgb": [
+        0.1412736764220226,
+        0.9696857362632261,
+        0.5501666736251767
+      ],
+      "seg_rgb": [
+        108,
+        89,
+        5
+      ],
+      "tag": ""
+    },
+    {
+      "object_id": 6,
+      "name": "vase_05",
+      "rgb": [
+        0.33939863109211676,
+        0.8738349726456791,
+        0.7397526049403969
+      ],
+      "seg_rgb": [
+        180,
+        225,
+        197
+      ],
+      "tag": ""
+    },
+    {
+      "object_id": 7,
+      "name": "emeco_navy_chair",
+      "rgb": [
+        0.015001916159182449,
+        0.9390808837810416,
+        0.5925523835819425
+      ],
+      "seg_rgb": [
+        101,
+        169,
+        180
+      ],
+      "tag": ""
+    }
+  ]
+}

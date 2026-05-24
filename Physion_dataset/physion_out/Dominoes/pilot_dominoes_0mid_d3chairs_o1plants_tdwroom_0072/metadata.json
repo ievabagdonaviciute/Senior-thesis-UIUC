@@ -1,0 +1,113 @@
+{
+  "hdf5": "/home/ievab2/run_models/Physion_dataset/Dominoes/pilot_dominoes_0mid_d3chairs_o1plants_tdwroom_0072.hdf5",
+  "target_id": 2,
+  "zone_id": 1,
+  "target_type": "cube",
+  "objects": [
+    {
+      "object_id": 1,
+      "name": "cube",
+      "rgb": [
+        1.0,
+        1.0,
+        0.0
+      ],
+      "seg_rgb": [
+        173,
+        1,
+        102
+      ],
+      "tag": "ZONE"
+    },
+    {
+      "object_id": 2,
+      "name": "cube",
+      "rgb": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "seg_rgb": [
+        145,
+        156,
+        157
+      ],
+      "tag": "TARGET"
+    },
+    {
+      "object_id": 3,
+      "name": "cube",
+      "rgb": [
+        0.47327026609170175,
+        0.5917311581463823,
+        0.779689944310013
+      ],
+      "seg_rgb": [
+        91,
+        251,
+        36
+      ],
+      "tag": ""
+    },
+    {
+      "object_id": 4,
+      "name": "vase_06",
+      "rgb": [
+        0.4026569949540111,
+        0.7472961816582718,
+        0.9351585507738054
+      ],
+      "seg_rgb": [
+        79,
+        164,
+        70
+      ],
+      "tag": ""
+    },
+    {
+      "object_id": 5,
+      "name": "b03_basset_hound",
+      "rgb": [
+        0.13638328026888058,
+        0.8183170376127753,
+        0.7869051068968698
+      ],
+      "seg_rgb": [
+        178,
+        115,
+        100
+      ],
+      "tag": ""
+    },
+    {
+      "object_id": 6,
+      "name": "animal_dog_rtsit_1282",
+      "rgb": [
+        0.19020060901749702,
+        0.6794054377974846,
+        0.8871425105191071
+      ],
+      "seg_rgb": [
+        25,
+        251,
+        180
+      ],
+      "tag": ""
+    },
+    {
+      "object_id": 7,
+      "name": "coffee_maker",
+      "rgb": [
+        0.051142982175512164,
+        0.8095658369561813,
+        0.5746105103356111
+      ],
+      "seg_rgb": [
+        145,
+        177,
+        12
+      ],
+      "tag": ""
+    }
+  ]
+}

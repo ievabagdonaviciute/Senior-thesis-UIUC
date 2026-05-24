@@ -1,0 +1,113 @@
+{
+  "hdf5": "/home/ievab2/run_models/Physion_dataset/Dominoes/pilot_dominoes_0mid_d3chairs_o1plants_tdwroom_0024.hdf5",
+  "target_id": 2,
+  "zone_id": 1,
+  "target_type": "cube",
+  "objects": [
+    {
+      "object_id": 1,
+      "name": "cube",
+      "rgb": [
+        1.0,
+        1.0,
+        0.0
+      ],
+      "seg_rgb": [
+        183,
+        23,
+        236
+      ],
+      "tag": "ZONE"
+    },
+    {
+      "object_id": 2,
+      "name": "cube",
+      "rgb": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "seg_rgb": [
+        46,
+        7,
+        167
+      ],
+      "tag": "TARGET"
+    },
+    {
+      "object_id": 3,
+      "name": "cube",
+      "rgb": [
+        0.2679530524972562,
+        0.8916599339789681,
+        0.5458647084136689
+      ],
+      "seg_rgb": [
+        83,
+        209,
+        236
+      ],
+      "tag": ""
+    },
+    {
+      "object_id": 4,
+      "name": "b03_worldglobe",
+      "rgb": [
+        0.32377651784200157,
+        0.6999230570419717,
+        0.7930665536274129
+      ],
+      "seg_rgb": [
+        102,
+        68,
+        53
+      ],
+      "tag": ""
+    },
+    {
+      "object_id": 5,
+      "name": "amphora_jar_vase",
+      "rgb": [
+        0.20195049030511392,
+        0.7032771230739007,
+        0.715676401010601
+      ],
+      "seg_rgb": [
+        198,
+        92,
+        169
+      ],
+      "tag": ""
+    },
+    {
+      "object_id": 6,
+      "name": "chair_thonet_marshall",
+      "rgb": [
+        0.3730220271360012,
+        0.9342116173226348,
+        0.9074575508797903
+      ],
+      "seg_rgb": [
+        79,
+        106,
+        251
+      ],
+      "tag": ""
+    },
+    {
+      "object_id": 7,
+      "name": "lapalma_stil_chair",
+      "rgb": [
+        0.3420579183858996,
+        0.9882820901858973,
+        0.7027366685261566
+      ],
+      "seg_rgb": [
+        123,
+        16,
+        155
+      ],
+      "tag": ""
+    }
+  ]
+}

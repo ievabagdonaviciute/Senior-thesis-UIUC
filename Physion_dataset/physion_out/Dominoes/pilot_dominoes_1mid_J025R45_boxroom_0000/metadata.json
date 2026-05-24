@@ -1,0 +1,68 @@
+{
+  "hdf5": "/home/ievab2/run_models/Physion_dataset/Dominoes/pilot_dominoes_1mid_J025R45_boxroom_0000.hdf5",
+  "target_id": 2,
+  "zone_id": 1,
+  "target_type": "cube",
+  "objects": [
+    {
+      "object_id": 1,
+      "name": "cube",
+      "rgb": [
+        1.0,
+        1.0,
+        0.0
+      ],
+      "seg_rgb": [
+        101,
+        193,
+        138
+      ],
+      "tag": "ZONE"
+    },
+    {
+      "object_id": 2,
+      "name": "cube",
+      "rgb": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "seg_rgb": [
+        142,
+        140,
+        49
+      ],
+      "tag": "TARGET"
+    },
+    {
+      "object_id": 3,
+      "name": "cube",
+      "rgb": [
+        0.5128214382590031,
+        0.6023203255263755,
+        0.6402546049980645
+      ],
+      "seg_rgb": [
+        5,
+        204,
+        178
+      ],
+      "tag": ""
+    },
+    {
+      "object_id": 4,
+      "name": "cube",
+      "rgb": [
+        0.13505181025154256,
+        0.8690566947710645,
+        0.8752958390726605
+      ],
+      "seg_rgb": [
+        170,
+        95,
+        232
+      ],
+      "tag": ""
+    }
+  ]
+}

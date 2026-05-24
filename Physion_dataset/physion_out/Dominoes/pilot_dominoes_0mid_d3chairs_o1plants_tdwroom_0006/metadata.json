@@ -1,0 +1,113 @@
+{
+  "hdf5": "/home/ievab2/run_models/Physion_dataset/Dominoes/pilot_dominoes_0mid_d3chairs_o1plants_tdwroom_0006.hdf5",
+  "target_id": 2,
+  "zone_id": 1,
+  "target_type": "cube",
+  "objects": [
+    {
+      "object_id": 1,
+      "name": "cube",
+      "rgb": [
+        1.0,
+        1.0,
+        0.0
+      ],
+      "seg_rgb": [
+        9,
+        155,
+        101
+      ],
+      "tag": "ZONE"
+    },
+    {
+      "object_id": 2,
+      "name": "cube",
+      "rgb": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "seg_rgb": [
+        45,
+        6,
+        103
+      ],
+      "tag": "TARGET"
+    },
+    {
+      "object_id": 3,
+      "name": "cube",
+      "rgb": [
+        0.36666203335820713,
+        0.4641073003153363,
+        0.27952515250929244
+      ],
+      "seg_rgb": [
+        218,
+        223,
+        191
+      ],
+      "tag": ""
+    },
+    {
+      "object_id": 4,
+      "name": "vase_02",
+      "rgb": [
+        0.3401045723132653,
+        0.9383545995305774,
+        0.7903009757648087
+      ],
+      "seg_rgb": [
+        77,
+        176,
+        244
+      ],
+      "tag": ""
+    },
+    {
+      "object_id": 5,
+      "name": "b03_cgaxis_models_19_16_01",
+      "rgb": [
+        0.12050535017612973,
+        0.5330767998519943,
+        0.9149893738721032
+      ],
+      "seg_rgb": [
+        47,
+        3,
+        44
+      ],
+      "tag": ""
+    },
+    {
+      "object_id": 6,
+      "name": "coffee_maker",
+      "rgb": [
+        0.2642289578409416,
+        0.6884823478982253,
+        0.6429027603184211
+      ],
+      "seg_rgb": [
+        203,
+        6,
+        200
+      ],
+      "tag": ""
+    },
+    {
+      "object_id": 7,
+      "name": "animal_dog_rtsit_1282",
+      "rgb": [
+        0.05233830408037499,
+        0.525096198383494,
+        0.7833794539821327
+      ],
+      "seg_rgb": [
+        52,
+        191,
+        96
+      ],
+      "tag": ""
+    }
+  ]
+}
