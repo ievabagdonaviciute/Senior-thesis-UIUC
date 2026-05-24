@@ -1,0 +1,9 @@
+{"category": "Collide", "accuracy": 0.748015873015873, "correct": 754, "total": 1008}
+{"category": "Contain", "accuracy": 0.6463536463536463, "correct": 647, "total": 1001}
+{"category": "Dominoes", "accuracy": 0.8333333333333334, "correct": 830, "total": 996}
+{"category": "Drape", "accuracy": 0.5425425425425425, "correct": 542, "total": 999}
+{"category": "Drop", "accuracy": 0.568, "correct": 568, "total": 1000}
+{"category": "Link", "accuracy": 0.5709969788519638, "correct": 567, "total": 993}
+{"category": "Roll", "accuracy": 0.7497497497497497, "correct": 749, "total": 999}
+{"category": "Support", "accuracy": 0.7342657342657343, "correct": 735, "total": 1001}
+{"category": "ALL", "accuracy": 0.6742528448168063, "correct": 5392, "total": 7997}
