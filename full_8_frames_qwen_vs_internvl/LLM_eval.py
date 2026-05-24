@@ -1,0 +1,335 @@
+#!/usr/bin/env python3
+import argparse, json, re, sys
+from pathlib import Path
+from typing import Any, Dict, Iterable, Optional, Set, Tuple
+
+import torch
+from transformers import AutoTokenizer, AutoModelForCausalLM
+
+# ===================== Config =====================
+MODEL_ID = "/shared/rsaas/ievab2/models/Llama-3.1-8B-Instruct"
+EXPERIMENT_DIR = Path("/home/ievab2/run_models/full_8_frames_qwen_vs_internvl")
+
+def build_paths():
+    eval_dir = {
+        "INTERNVL":          EXPERIMENT_DIR / "INTERNVL"         / "LLM_eval_results",
+        "QWEN":              EXPERIMENT_DIR / "QWEN"             / "LLM_eval_results",
+    }
+    model_file = {
+        "INTERNVL":          EXPERIMENT_DIR / "INTERNVL"         / "internvl_out.jsonl",
+        "QWEN":              EXPERIMENT_DIR / "QWEN"             / "qwen_out.jsonl",
+    }
+    return eval_dir, model_file
+# ==================================================
+
+# Generation settings (deterministic)
+MAX_NEW_TOKENS = 64
+TEMPERATURE = 0.0
+TOP_P = 1.0
+
+DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+DTYPE = torch.bfloat16 if (torch.cuda.is_available() and torch.cuda.is_bf16_supported()) else (
+    torch.float16 if torch.cuda.is_available() else torch.float32
+)
+# ===================================================
+
+# ======= Prompts =======
+
+SYSTEM_PROMPT_OPENENDED = """
+You are a STRICT BINARY GRADER. Output EXACTLY one number: 1.0 if the ModelAnswer semantically matches the GroundTruth, else 0.0. Output nothing else.
+
+Decision Procedure (apply in order):
+1) Normalize both GroundTruth (GT) and ModelAnswer (MA):
+   - Lowercase. Strip punctuation and extra spaces.
+   - Map synonyms:
+     YES set = {yes, yeah, yep, true, there is, there are, exists, at least one}
+     NO  set = {no, none, false, not present, absent, there is no, there are no, zero}
+   - Extract numbers (integers) when present.
+2) If GT is YES/NO (or synonyms):
+   - If MA contains a clear YES cue and no clear NO cue → 1.0.
+   - If MA contains a clear NO cue and no clear YES cue → 1.0.
+   - If MA contains BOTH, or expresses uncertainty (maybe, probably, I think, unsure, cannot tell) → 0.0.
+   - If MA has no recognizable YES/NO cue → 0.0.
+3) If GT is a NUMBER:
+   - If MA contains a different number → 0.0.
+   - If MA contains the SAME number and does not contain a conflicting number → 1.0.
+   - If MA has no number → 0.0.
+4) If GT is a TEXT LABEL (e.g., a color or shape):
+   - Exact-match after normalization (singular/plural allowed: "cube"/"cubes" count as a match).
+   - If MA mentions a different label or none → 0.0.
+5) If MA includes extra unrelated sentences, ignore them. Grade ONLY on the asserted polarity/number/label.
+6) Any hedging, contradiction, or lack of an explicit, extractable cue → 0.0.
+
+Return ONLY 1.0 or 0.0.
+
+Few-shot:
+GroundTruth: no | ModelAnswer: "No, there are none." → 1.0
+GroundTruth: no | ModelAnswer: "no" → 1.0
+GroundTruth: no | ModelAnswer: "Yes, there are moving cubes" → 0.0
+GroundTruth: no | ModelAnswer: "No, there are no moving cubes" → 1.0
+GroundTruth: yes | ModelAnswer: "no" → 0.0
+GroundTruth: yes | ModelAnswer: "Yes, at least one." → 1.0
+
+GroundTruth: 3 | ModelAnswer: "There are three." → 1.0
+GroundTruth: 3 | ModelAnswer: "Four." → 0.0
+GroundTruth: 3 | ModelAnswer: "3" → 1.0
+GroundTruth: 5 | ModelAnswer: "There are five stationary objects" → 1.0
+GroundTruth: 5 | ModelAnswer: "There are six stationary objects" → 0.0
+GroundTruth: 5 | ModelAnswer: "Five (5)" → 1.0
+
+GroundTruth: sphere collides with the cube | ModelAnswer: "Sphere collides with the cylinder." → 0.0
+GroundTruth: sphere collides with the cube | ModelAnswer: "Sphere collides with the cube" → 1.0
+
+GroundTruth: yellow | ModelAnswer: "The color is black" → 0.0
+GroundTruth: yellow | ModelAnswer: "It is yellow" → 1.0
+GroundTruth: blue | ModelAnswer: "blue" → 1.0
+GroundTruth: cube | ModelAnswer: "Cylinder" → 0.0
+GroundTruth: cube | ModelAnswer: "The shape is cube" → 1.0
+GroundTruth: cube | ModelAnswer: "cubes" → 1.0
+
+Counter-examples (always 0.0):
+GroundTruth: yes | ModelAnswer: "Maybe yes" → 0.0
+GroundTruth: no  | ModelAnswer: "No… but yes" → 0.0
+GroundTruth: 3   | ModelAnswer: "two or three" → 0.0
+"""
+
+
+USER_TEMPLATE = """
+Question: {prompt}
+GroundTruth: {ground_truth}
+ModelAnswer: {model_output}
+
+Return ONLY 1.0 for correct, or 0.0 for incorrect.
+"""
+# ========================================
+
+FLOAT_RE = re.compile(r"[-+]?\d*\.\d+|[-+]?\d+")
+
+from transformers import AutoTokenizer, AutoModelForCausalLM
+from transformers.utils import is_flash_attn_2_available   # <-- add
+
+def load_judge():
+    print(f"[llama-judge] Loading {MODEL_ID} …", flush=True)
+    tok = AutoTokenizer.from_pretrained(MODEL_ID, use_fast=True)
+    if tok.pad_token is None:
+        tok.pad_token = tok.eos_token
+
+    gen_kwargs = {
+        "torch_dtype": DTYPE,
+        "device_map": "auto",
+    }
+    # only enable FA2 if the package is installed; else fall back to SDPA
+    if is_flash_attn_2_available():
+        gen_kwargs["attn_implementation"] = "flash_attention_2"
+    else:
+        gen_kwargs["attn_implementation"] = "sdpa"
+
+    model = AutoModelForCausalLM.from_pretrained(MODEL_ID, **gen_kwargs)
+    return tok, model
+
+
+def chat(tokenizer, model, system_prompt: str, user: str) -> str:
+    msgs = [
+        {"role": "system", "content": system_prompt},
+        {"role": "user",   "content": user},
+    ]
+
+    try:
+        input_ids = tokenizer.apply_chat_template(
+            msgs, return_tensors="pt", add_generation_prompt=True
+        )
+        if isinstance(input_ids, dict):
+            input_ids = input_ids["input_ids"]
+    except Exception:
+        # Fallback if template missing (shouldn't happen for Llama-3.1)
+        full = f"[SYSTEM]\n{system_prompt}\n\n[USER]\n{user}\n\n[ASSISTANT]\n"
+        input_ids = tokenizer(full, return_tensors="pt")["input_ids"]
+
+    # place inputs on same device as first real param (handles sharded models)
+    try:
+        first_param_device = next(p.device for p in model.parameters() if p.device.type != "meta")
+    except StopIteration:
+        first_param_device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+    input_ids = input_ids.to(first_param_device)
+
+    with torch.no_grad():
+        out = model.generate(
+            input_ids=input_ids,
+            max_new_tokens=MAX_NEW_TOKENS,           # only need "0.0"/"0.5"/"1.0"
+            do_sample=False,
+            temperature=None,
+            top_p=None,
+            top_k=None,
+            pad_token_id=tokenizer.pad_token_id,
+            eos_token_id=tokenizer.eos_token_id,
+        )
+    gen_only = out[0, input_ids.shape[-1]:]
+    return tokenizer.decode(gen_only, skip_special_tokens=True).strip()
+
+def extract_score(text: str) -> float:
+    m = FLOAT_RE.search(text)
+    if not m:
+        return 0.0
+    try:
+        val = float(m.group(0))
+        return 0.0 if val < 0 else 1.0 if val > 1 else val
+    except Exception:
+        return 0.0
+
+
+def build_user_prompt(ex: Dict[str, Any]) -> str:
+    category = ex.get("category") or ""
+    prompt   = ex.get("prompt")
+    gt       = ex.get("ground_truth", "")
+    pred     = ex.get("model_output", "")
+    return USER_TEMPLATE.format(
+        category=category, prompt=prompt, ground_truth=gt, model_output=pred
+    )
+
+# ---------- Resume helpers ----------
+def load_existing_pairs(out_path: Path) -> Set[Tuple[str, str]]:
+    """Return set of (category_lower, question_id) already evaluated."""
+    seen: Set[Tuple[str, str]] = set()
+    if out_path.exists():
+        with out_path.open() as f:
+            for line in f:
+                if not line.strip():
+                    continue
+                try:
+                    obj = json.loads(line)
+                except Exception:
+                    continue
+                cat = (obj.get("category") or "").strip().lower()
+                qid = obj.get("question_id") or ""
+                if cat and qid:
+                    seen.add((cat, qid))
+    return seen
+
+def input_stream_with_resume(fin, resume_cat: Optional[str], resume_qid: Optional[str]) -> Iterable[str]:
+    """Yield lines from fin; if resume_* provided, start from the first match (inclusive)."""
+    if not resume_cat and not resume_qid:
+        yield from fin
+        return
+
+    target_cat = (resume_cat or "").strip().lower()
+    target_qid = (resume_qid or "").strip()
+    started = False
+
+    for line in fin:
+        if not line.strip():
+            continue
+        try:
+            ex = json.loads(line)
+        except Exception:
+            continue
+
+        cat = (ex.get("category") or "").strip().lower()
+        qid = (ex.get("question_id") or "").strip()
+
+        if not started:
+            cat_ok = (not target_cat) or (cat == target_cat)
+            qid_ok = (not target_qid) or (qid == target_qid)
+            if cat_ok and qid_ok:
+                started = True
+                yield json.dumps(ex)
+        else:
+            yield json.dumps(ex)
+
+# ---------- Main evaluation ----------
+def evaluate_file(
+    input_jsonl: Path,
+    output_jsonl: Path,
+    limit: int = 0,
+    resume_cat: Optional[str] = None,
+    resume_qid: Optional[str] = None,
+):
+    tokenizer, model = load_judge()
+    output_jsonl.parent.mkdir(parents=True, exist_ok=True)
+
+    append_mode = bool(resume_cat or resume_qid)
+    fout_mode = "a" if append_mode else "w"
+
+    already: Set[Tuple[str, str]] = load_existing_pairs(output_jsonl) if append_mode else set()
+    if append_mode:
+        print(f"[llama-judge] Resume mode ON. Already have {len(already)} evaluated items.", flush=True)
+        if resume_cat:
+            print(f"[llama-judge] Resuming from category='{resume_cat}'", flush=True)
+        if resume_qid:
+            print(f"[llama-judge] Resuming from question_id='{resume_qid}'", flush=True)
+
+    n_written = 0
+    with input_jsonl.open() as fin, output_jsonl.open(fout_mode) as fout:
+        stream = input_stream_with_resume(fin, resume_cat, resume_qid)
+        for raw_line in stream:
+            if limit and n_written >= limit:
+                break
+            ex: Dict[str, Any] = json.loads(raw_line)
+
+            # ONLY EVALUATING DESCRIPTIVE NOW
+            cat_lower = (ex.get("category") or "").strip().lower()
+            if cat_lower != "descriptive":
+                continue
+
+            key = (cat_lower, (ex.get("question_id") or "").strip())
+            if append_mode and key in already:
+                continue
+
+            sys_prompt = SYSTEM_PROMPT_OPENENDED
+            user_prompt = build_user_prompt(ex)
+
+            raw = chat(tokenizer, model, sys_prompt, user_prompt)
+            score = extract_score(raw)
+
+            ex["llm_score"] = score
+            ex["llm_system_prompt"] = sys_prompt
+            ex["llm_user_prompt"] = user_prompt
+            ex["llm_raw_output"] = raw
+
+            fout.write(json.dumps(ex, ensure_ascii=False) + "\n")
+
+            n_written += 1
+            if n_written % 10 == 0:
+                print(f"[llama-judge] Processed {n_written} descriptive examples so far…", flush=True)
+
+    print(f"[llama-judge] Wrote {n_written} lines to {output_jsonl}")
+
+def main():
+    ap = argparse.ArgumentParser(description="Evaluate VLM outputs with a local judge (Llama-3.1-8B-Instruct).")
+    ap.add_argument("model_name",
+        choices=["QWEN","INTERNVL"],
+        help="Which VLM's results to evaluate")
+    ap.add_argument("--resume-cat", type=str, default=None,
+        help="Resume from this category (inclusive).")
+    ap.add_argument("--resume-qid", type=str, default=None,
+        help="Resume from this question_id (inclusive).")
+
+    args = ap.parse_args()
+
+    eval_dir_map, model_file_map = build_paths()
+
+    in_path = model_file_map[args.model_name]
+    if not in_path.exists():
+        print(f"ERROR: Input file not found: {in_path}", file=sys.stderr)
+        sys.exit(1)
+
+    out_dir = eval_dir_map[args.model_name]
+    out_dir.mkdir(parents=True, exist_ok=True)
+    out_path = out_dir / f"{args.model_name.lower()}_evaluated_descriptive.jsonl"
+
+    print(f"[llama-judge] Evaluating {args.model_name}")
+    print(f"[llama-judge] Input : {in_path}")
+    print(f"[llama-judge] Output: {out_path}")
+
+    LIMIT = 0  # 0 = no limit
+
+    evaluate_file(
+        in_path,
+        out_path,
+        limit=LIMIT,
+        resume_cat=args.resume_cat,
+        resume_qid=args.resume_qid,
+    )
+
+if __name__ == "__main__":
+    main()

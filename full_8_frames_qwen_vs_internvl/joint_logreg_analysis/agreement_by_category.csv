@@ -1,0 +1,5 @@
+category,both_correct,both_wrong,internvl_only,qwen_only,total,both_correct_pct,both_wrong_pct,internvl_only_pct,qwen_only_pct
+counterfactual,80,548,225,100,953,0.084,0.575,0.236,0.105
+descriptive,4292,257,357,592,5498,0.781,0.047,0.065,0.108
+explanatory,136,476,140,98,850,0.16,0.56,0.165,0.115
+predictive,99,71,144,32,346,0.286,0.205,0.416,0.092
