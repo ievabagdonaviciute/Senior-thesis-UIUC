@@ -1,0 +1,34 @@
+{"type": "no_occlr", "section": "begin"}
+{"type": "no_occlr", "tag": "base", "accuracy": 0.7457627118644068, "correct": 44, "total": 59}
+
+{"type": "no_occlr", "tag": "SPLIT1_epochs1", "accuracy": 0.8305084745762712, "correct": 49, "total": 59}
+{"type": "no_occlr", "tag": "SPLIT2_epochs1", "accuracy": 0.7457627118644068, "correct": 44, "total": 59}
+{"type": "no_occlr", "tag": "SPLIT3_epochs1", "accuracy": 0.7796610169491526, "correct": 46, "total": 59}
+
+{"type": "no_occlr", "tag": "SPLIT1_epochs3", "accuracy": 0.7288135593220338, "correct": 43, "total": 59}
+{"type": "no_occlr", "tag": "SPLIT2_epochs3", "accuracy": 0.7627118644067796, "correct": 45, "total": 59}
+{"type": "no_occlr", "tag": "SPLIT3_epochs3", "accuracy": 0.7796610169491526, "correct": 46, "total": 59}
+
+{"type": "no_occlr", "tag": "SPLIT1_epochs5", "accuracy": 0.8135593220338984, "correct": 48, "total": 59}
+{"type": "no_occlr", "tag": "SPLIT2_epochs5", "accuracy": 0.6949152542372882, "correct": 41, "total": 59}
+{"type": "no_occlr", "tag": "SPLIT3_epochs5", "accuracy": 0.7457627118644068, "correct": 44, "total": 59}
+
+{"type": "no_occlr", "section": "end"}
+
+{"type": "occlr", "section": "begin"}
+{"type": "occlr", "tag": "base", "accuracy": 0.711864406779661, "correct": 42, "total": 59}
+
+{"type": "occlr", "tag": "SPLIT1_epochs1", "accuracy": 0.8135593220338984, "correct": 48, "total": 59}
+{"type": "occlr", "tag": "SPLIT2_epochs1", "accuracy": 0.7796610169491526, "correct": 46, "total": 59}
+{"type": "occlr", "tag": "SPLIT3_epochs1", "accuracy": 0.711864406779661, "correct": 42, "total": 59}
+
+{"type": "occlr", "tag": "SPLIT1_epochs3", "accuracy": 0.6779661016949152, "correct": 40, "total": 59}
+{"type": "occlr", "tag": "SPLIT2_epochs3", "accuracy": 0.7627118644067796, "correct": 45, "total": 59}
+{"type": "occlr", "tag": "SPLIT3_epochs3", "accuracy": 0.7966101694915254, "correct": 47, "total": 59}
+
+{"type": "occlr", "tag": "SPLIT1_epochs5", "accuracy": 0.711864406779661, "correct": 42, "total": 59}
+{"type": "occlr", "tag": "SPLIT2_epochs5", "accuracy": 0.7288135593220338, "correct": 43, "total": 59}
+{"type": "occlr", "tag": "SPLIT3_epochs5", "accuracy": 0.6779661016949152, "correct": 40, "total": 59}
+
+{"type": "occlr", "section": "end"}
+

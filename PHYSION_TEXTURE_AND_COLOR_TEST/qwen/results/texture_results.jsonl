@@ -1,0 +1,14 @@
+{"tag": "base", "accuracy": 0.4365079365079365, "correct": 220, "total": 504}
+
+{"tag": "SPLIT1_epochs1", "accuracy": 0.5793650793650794, "correct": 292, "total": 504}
+{"tag": "SPLIT2_epochs1", "accuracy": 0.5793650793650794, "correct": 292, "total": 504}
+{"tag": "SPLIT3_epochs1", "accuracy": 0.5753968253968254, "correct": 290, "total": 504}
+
+{"tag": "SPLIT1_epochs3", "accuracy": 0.5793650793650794, "correct": 292, "total": 504}
+{"tag": "SPLIT2_epochs3", "accuracy": 0.5714285714285714, "correct": 288, "total": 504}
+{"tag": "SPLIT3_epochs3", "accuracy": 0.621031746031746, "correct": 313, "total": 504}
+
+{"tag": "SPLIT1_epochs5", "accuracy": 0.5595238095238095, "correct": 282, "total": 504}
+{"tag": "SPLIT2_epochs5", "accuracy": 0.5595238095238095, "correct": 282, "total": 504}
+{"tag": "SPLIT3_epochs5", "accuracy": 0.5773809523809523, "correct": 291, "total": 504}
+

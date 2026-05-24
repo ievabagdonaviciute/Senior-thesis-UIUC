@@ -1,0 +1,51 @@
+{"type": "yellowz_redt", "section": "begin"}
+{"type": "yellowz_redt", "tag": "base", "accuracy": 0.6533333333333333, "correct": 49, "total": 75}
+
+{"type": "yellowz_redt", "tag": "SPLIT1_epochs1", "accuracy": 0.84, "correct": 63, "total": 75}
+{"type": "yellowz_redt", "tag": "SPLIT2_epochs1", "accuracy": 0.84, "correct": 63, "total": 75}
+{"type": "yellowz_redt", "tag": "SPLIT3_epochs1", "accuracy": 0.8133333333333334, "correct": 61, "total": 75}
+
+{"type": "yellowz_redt", "tag": "SPLIT1_epochs3", "accuracy": 0.8133333333333334, "correct": 61, "total": 75}
+{"type": "yellowz_redt", "tag": "SPLIT2_epochs3", "accuracy": 0.84, "correct": 63, "total": 75}
+{"type": "yellowz_redt", "tag": "SPLIT3_epochs3", "accuracy": 0.8533333333333334, "correct": 64, "total": 75}
+
+{"type": "yellowz_redt", "tag": "SPLIT1_epochs5", "accuracy": 0.8133333333333334, "correct": 61, "total": 75}
+{"type": "yellowz_redt", "tag": "SPLIT2_epochs5", "accuracy": 0.7866666666666666, "correct": 59, "total": 75}
+{"type": "yellowz_redt", "tag": "SPLIT3_epochs5", "accuracy": 0.8266666666666667, "correct": 62, "total": 75}
+
+{"type": "yellowz_redt", "section": "end"}
+
+{"type": "redz_yellowt", "section": "begin"}
+{"type": "redz_yellowt", "tag": "base", "accuracy": 0.5066666666666667, "correct": 38, "total": 75}
+
+{"type": "redz_yellowt", "tag": "SPLIT1_epochs1", "accuracy": 0.8, "correct": 60, "total": 75}
+{"type": "redz_yellowt", "tag": "SPLIT2_epochs1", "accuracy": 0.6933333333333334, "correct": 52, "total": 75}
+{"type": "redz_yellowt", "tag": "SPLIT3_epochs1", "accuracy": 0.7066666666666667, "correct": 53, "total": 75}
+
+{"type": "redz_yellowt", "tag": "SPLIT1_epochs3", "accuracy": 0.64, "correct": 48, "total": 75}
+{"type": "redz_yellowt", "tag": "SPLIT2_epochs3", "accuracy": 0.7333333333333333, "correct": 55, "total": 75}
+{"type": "redz_yellowt", "tag": "SPLIT3_epochs3", "accuracy": 0.6933333333333334, "correct": 52, "total": 75}
+
+{"type": "redz_yellowt", "tag": "SPLIT1_epochs5", "accuracy": 0.6666666666666666, "correct": 50, "total": 75}
+{"type": "redz_yellowt", "tag": "SPLIT2_epochs5", "accuracy": 0.68, "correct": 51, "total": 75}
+{"type": "redz_yellowt", "tag": "SPLIT3_epochs5", "accuracy": 0.6933333333333334, "correct": 52, "total": 75}
+
+{"type": "redz_yellowt", "section": "end"}
+
+{"type": "randomz_randomt", "section": "begin"}
+{"type": "randomz_randomt", "tag": "base", "accuracy": 0.6266666666666667, "correct": 47, "total": 75}
+
+{"type": "randomz_randomt", "tag": "SPLIT1_epochs1", "accuracy": 0.7466666666666667, "correct": 56, "total": 75}
+{"type": "randomz_randomt", "tag": "SPLIT2_epochs1", "accuracy": 0.7466666666666667, "correct": 56, "total": 75}
+{"type": "randomz_randomt", "tag": "SPLIT3_epochs1", "accuracy": 0.72, "correct": 54, "total": 75}
+
+{"type": "randomz_randomt", "tag": "SPLIT1_epochs3", "accuracy": 0.6933333333333334, "correct": 52, "total": 75}
+{"type": "randomz_randomt", "tag": "SPLIT2_epochs3", "accuracy": 0.7866666666666666, "correct": 59, "total": 75}
+{"type": "randomz_randomt", "tag": "SPLIT3_epochs3", "accuracy": 0.72, "correct": 54, "total": 75}
+
+{"type": "randomz_randomt", "tag": "SPLIT1_epochs5", "accuracy": 0.7466666666666667, "correct": 56, "total": 75}
+{"type": "randomz_randomt", "tag": "SPLIT2_epochs5", "accuracy": 0.6933333333333334, "correct": 52, "total": 75}
+{"type": "randomz_randomt", "tag": "SPLIT3_epochs5", "accuracy": 0.6933333333333334, "correct": 52, "total": 75}
+
+{"type": "randomz_randomt", "section": "end"}
+
