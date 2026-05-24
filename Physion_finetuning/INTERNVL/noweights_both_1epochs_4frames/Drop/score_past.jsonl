@@ -1,0 +1,6 @@
+{
+  "file_evaluated": "/home/ievab2/run_models/Physion_finetuning/INTERNVL/noweights_both_1epochs_4frames/Drop/drop_past_out.jsonl",
+  "total": 550,
+  "correct": 345,
+  "accuracy": 0.6272727272727273
+}

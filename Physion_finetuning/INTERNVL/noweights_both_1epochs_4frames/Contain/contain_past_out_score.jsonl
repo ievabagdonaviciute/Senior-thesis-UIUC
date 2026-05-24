@@ -1,0 +1,6 @@
+{
+  "file_evaluated": "/home/ievab2/run_models/Physion_finetuning/INTERNVL/noweights_both_1epochs_4frames/Contain/contain_past_out.jsonl",
+  "total": 426,
+  "correct": 344,
+  "accuracy": 0.8075117370892019
+}

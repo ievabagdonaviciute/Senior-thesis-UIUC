@@ -1,0 +1,6 @@
+{
+  "file_evaluated": "/home/ievab2/run_models/Physion_finetuning/INTERNVL/round0_base_model/Dominoes/dominoes_past_out.jsonl",
+  "total": 562,
+  "correct": 376,
+  "accuracy": 0.6690391459074733
+}

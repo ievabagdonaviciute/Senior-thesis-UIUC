@@ -1,0 +1,4 @@
+{"task": "Dominoes", "split_kind": "pred", "majority_label": "yes", "accuracy_percent": 54.62633451957295, "total": 562, "label_counts": {"no": 255, "yes": 307}}
+{"task": "Contain", "split_kind": "pred", "majority_label": "yes", "accuracy_percent": 57.51173708920187, "total": 426, "label_counts": {"yes": 245, "no": 181}}
+{"task": "Drop", "split_kind": "pred", "majority_label": "no", "accuracy_percent": 50.18181818181818, "total": 550, "label_counts": {"no": 276, "yes": 274}}
+{"task": "GLOBAL", "split_kind": "pred", "majority_label": "yes", "accuracy_percent": 53.70611183355006, "total": 1538, "label_counts": {"no": 712, "yes": 826}}

@@ -1,0 +1,6 @@
+{
+  "file_evaluated": "/home/ievab2/run_models/Physion_finetuning/INTERNVL/noweights_both_1epochs_4frames/Dominoes/dominoes_past_out.jsonl",
+  "total": 562,
+  "correct": 491,
+  "accuracy": 0.8736654804270463
+}

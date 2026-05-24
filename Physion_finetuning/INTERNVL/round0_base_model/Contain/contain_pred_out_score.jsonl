@@ -1,0 +1,6 @@
+{
+  "file_evaluated": "/home/ievab2/run_models/Physion_finetuning/INTERNVL/round0_base_model/Contain/contain_pred_out.jsonl",
+  "total": 426,
+  "correct": 271,
+  "accuracy": 0.636150234741784
+}

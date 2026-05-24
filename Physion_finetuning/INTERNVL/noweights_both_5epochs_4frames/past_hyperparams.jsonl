@@ -1,0 +1,1 @@
+{"learning_rate": 5e-05, "batch_size": 1, "epochs": 5.0, "lr_scheduler_type": "cosine", "max_frames": 4, "lora_r": 16, "lora_alpha": 64, "lora_dropout": 0.05, "easy_w": 1.0, "hard_w": 1.0}
