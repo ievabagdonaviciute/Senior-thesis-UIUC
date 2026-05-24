@@ -1,0 +1,4 @@
+{"split": "SPLIT1", "category": "Support_OOD", "accuracy": 0.5424575424575424, "correct": 543, "total": 1001}
+{"split": "SPLIT2", "category": "Support_OOD", "accuracy": 0.968031968031968, "correct": 969, "total": 1001}
+{"split": "SPLIT3", "category": "Support_OOD", "accuracy": 0.8271728271728271, "correct": 828, "total": 1001}
+{"category": "Support_OOD", "mean_accuracy": 0.7792207792207791, "std_accuracy": 0.17701779026008885, "type": "mean_std_over_splits"}

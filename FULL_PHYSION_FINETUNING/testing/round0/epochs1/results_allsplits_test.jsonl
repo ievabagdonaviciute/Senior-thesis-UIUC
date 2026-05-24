@@ -1,0 +1,35 @@
+{"split": "SPLIT1", "category": "Collide", "accuracy": 0.6584158415841584, "correct": 133, "total": 202}
+{"split": "SPLIT1", "category": "Contain", "accuracy": 0.7313432835820896, "correct": 147, "total": 201}
+{"split": "SPLIT1", "category": "Dominoes", "accuracy": 0.755, "correct": 151, "total": 200}
+{"split": "SPLIT1", "category": "Drape", "accuracy": 0.64, "correct": 128, "total": 200}
+{"split": "SPLIT1", "category": "Drop", "accuracy": 0.645, "correct": 129, "total": 200}
+{"split": "SPLIT1", "category": "Link", "accuracy": 0.5125628140703518, "correct": 102, "total": 199}
+{"split": "SPLIT1", "category": "Roll", "accuracy": 0.71, "correct": 142, "total": 200}
+{"split": "SPLIT1", "category": "ALL", "accuracy": 0.6647646219686163}
+
+{"split": "SPLIT2", "category": "Collide", "accuracy": 0.5742574257425742, "correct": 116, "total": 202}
+{"split": "SPLIT2", "category": "Contain", "accuracy": 0.7910447761194029, "correct": 159, "total": 201}
+{"split": "SPLIT2", "category": "Dominoes", "accuracy": 0.8, "correct": 160, "total": 200}
+{"split": "SPLIT2", "category": "Drape", "accuracy": 0.645, "correct": 129, "total": 200}
+{"split": "SPLIT2", "category": "Drop", "accuracy": 0.615, "correct": 123, "total": 200}
+{"split": "SPLIT2", "category": "Link", "accuracy": 0.6180904522613065, "correct": 123, "total": 199}
+{"split": "SPLIT2", "category": "Roll", "accuracy": 0.63, "correct": 126, "total": 200}
+{"split": "SPLIT2", "category": "ALL", "accuracy": 0.6676176890156919}
+
+{"split": "SPLIT3", "category": "Collide", "accuracy": 0.5297029702970297, "correct": 107, "total": 202}
+{"split": "SPLIT3", "category": "Contain", "accuracy": 0.5621890547263682, "correct": 113, "total": 201}
+{"split": "SPLIT3", "category": "Dominoes", "accuracy": 0.5, "correct": 100, "total": 200}
+{"split": "SPLIT3", "category": "Drape", "accuracy": 0.495, "correct": 99, "total": 200}
+{"split": "SPLIT3", "category": "Drop", "accuracy": 0.525, "correct": 105, "total": 200}
+{"split": "SPLIT3", "category": "Link", "accuracy": 0.49246231155778897, "correct": 98, "total": 199}
+{"split": "SPLIT3", "category": "Roll", "accuracy": 0.555, "correct": 111, "total": 200}
+{"split": "SPLIT3", "category": "ALL", "accuracy": 0.5228245363766049}
+
+{"category": "Collide", "mean_accuracy": 0.5874587458745875, "std_accuracy": 0.05336951032606017, "type": "mean_std_over_splits"}
+{"category": "Contain", "mean_accuracy": 0.6948590381426202, "std_accuracy": 0.09692629649222193, "type": "mean_std_over_splits"}
+{"category": "Dominoes", "mean_accuracy": 0.685, "std_accuracy": 0.1320984481362291, "type": "mean_std_over_splits"}
+{"category": "Drape", "mean_accuracy": 0.5933333333333334, "std_accuracy": 0.06956212251569736, "type": "mean_std_over_splits"}
+{"category": "Drop", "mean_accuracy": 0.5950000000000001, "std_accuracy": 0.05099019513592784, "type": "mean_std_over_splits"}
+{"category": "Link", "mean_accuracy": 0.541038525963149, "std_accuracy": 0.055098439542373624, "type": "mean_std_over_splits"}
+{"category": "Roll", "mean_accuracy": 0.6316666666666667, "std_accuracy": 0.06328945848682505, "type": "mean_std_over_splits"}
+{"category": "ALL", "mean_accuracy": 0.6184022824536376, "std_accuracy": 0.06759370856703602, "type": "mean_std_over_splits"}
