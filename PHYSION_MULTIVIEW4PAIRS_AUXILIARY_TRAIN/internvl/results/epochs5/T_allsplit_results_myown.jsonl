@@ -1,0 +1,7 @@
+{"split": "SPLIT1", "category": "ALL", "accuracy": null}
+
+{"split": "SPLIT2", "category": "ALL", "accuracy": null}
+
+{"split": "SPLIT3", "category": "ALL", "accuracy": null}
+
+{"category": "ALL", "mean_accuracy": null, "std_accuracy": null, "type": "mean_std_over_splits"}
