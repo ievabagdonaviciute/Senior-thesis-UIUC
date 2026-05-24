@@ -1,0 +1,17 @@
+*.sh
+__pycache__/
+*.pyc
+.cache/
+*.csv.gz
+*.pt
+*.pth
+*.ckpt
+*.h5
+*.npy
+*.npz
+*.mp4
+*.avi
+*.mov
+wandb/
+logs/
+checkpoints/
