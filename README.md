@@ -2,7 +2,7 @@
 
 This repository contains the code for my undergraduate senior thesis at the University of Illinois Urbana-Champaign:
 
-**“Physical Reasoning in Vision-Language Models”** :contentReference[oaicite:0]{index=0}
+**“Physical Reasoning in Vision-Language Models”** :
 
 ## Overview
 
